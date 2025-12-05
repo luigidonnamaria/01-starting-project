@@ -1,7 +1,11 @@
-import { Component, signal, computed } from '@angular/core';
-import { DUMMY_USERS } from '../dummy-users';
+import { Component, Input , Output, input, computed, EventEmitter} from '@angular/core';
 
-const randomNumber = Math.floor(Math.random() * DUMMY_USERS.length);
+interface User {
+    id: string;
+    avatar: string;
+    name: string
+  };
+
 
 @Component({
   selector: 'app-user',
@@ -12,22 +16,31 @@ const randomNumber = Math.floor(Math.random() * DUMMY_USERS.length);
 })
 export class UserComponent {
 
-  selectedUser = signal(DUMMY_USERS[randomNumber]);
-  userPath = computed(()=> 'assets/users/'+ this.selectedUser().avatar);
-  
+  @Input({required:true}) user !: User;
+ 
+  @Output()  select = new EventEmitter();
 
-  /**get userPath() {
+   get userPath() {
 
-    return 'assets/users/' + this.selectedUser.avatar;
+    return 'assets/users/' + this.user.avatar;
   }
 
- **/
+  //****SIGNAL INPUT
+
+  // avatar = input.required<string>();
+  // name = input.required<string>();
+  
+  // userPath = computed(()=>{
+  //   return 'assets/users/'+ this.avatar()
+  //   })
+ 
+
+ 
  
 
   onClickSelectedUser(){
-    const randomNumber = Math.floor(Math.random() * DUMMY_USERS.length);
-    this.selectedUser.set(DUMMY_USERS[randomNumber]);
-
+   
+    this.select.emit(this.user.id);
    
   }
 
