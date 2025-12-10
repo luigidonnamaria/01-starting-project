@@ -33,10 +33,6 @@ export class UserComponent {
   // userPath = computed(()=>{
   //   return 'assets/users/'+ this.avatar()
   //   })
- 
-
- 
- 
 
   onClickSelectedUser(){
    
