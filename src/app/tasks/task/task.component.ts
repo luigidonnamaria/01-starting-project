@@ -1,12 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output} from '@angular/core';
+import { type Task} from '../task.model';
 
-interface Task {
-    id: string,
-    userId: string,
-    title: string,
-    summary: string,
-    dueDate: string,
-}
 
 
 @Component({
@@ -19,5 +13,10 @@ interface Task {
 export class TaskComponent {
 
   @Input({required:true}) task !: Task;
+  @Output() delete = new EventEmitter<string>();
+
+  onDeleteSelectedTask() {
+    this.delete.emit(this.task.id);
+}
 
 }

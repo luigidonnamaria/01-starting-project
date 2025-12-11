@@ -3,15 +3,9 @@ import { HeaderComponent } from './header/header.component';
 import { UserComponent } from "./user/user.component";
 import { DUMMY_USERS } from './dummy-users';
 import { TasksComponent } from './tasks/tasks.component';
-import { DUMMY_TASKS } from './tasks/dummy-tasks';
+import {type User} from './user/user.model'
+import { NewTaskComponent } from "./tasks/new-task/new-task.component";
 
-interface Task {
-    id: string,
-    userId: string,
-    title: string,
-    summary: string,
-    dueDate: string,
-}
 
 @Component({
   selector: 'app-root',
@@ -22,12 +16,17 @@ interface Task {
 })
 export class AppComponent {
 
+
   users = DUMMY_USERS;
-  selectedUser?: string;
-  selectedTasks?: Task[] = [];
+  selectedUser?: User;
+  showForm !:boolean;
 
   onSelectUser(id: string) {
-    this.selectedUser = this.users.find(user => user.id === id)?.name;
-    this.selectedTasks = DUMMY_TASKS.filter(task => task.userId === id);
+    this.selectedUser = this.users.find(user => user.id === id);
+    
+}
+
+onShowForm(showF: boolean) {
+    this.showForm= showF;
 }
 }
